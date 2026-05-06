@@ -41,11 +41,10 @@ svg {
   background: #e0e0e0;
 }
 
-/* ✅ INFO BOX */
+/* ✅ FIXED: RIGHT-SIDE PANEL */
 #infoBox {
   position: absolute;
   top: 60px;
-  left: 300px;
   background: white;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -53,10 +52,13 @@ svg {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   display: none;
   font-size: 13px;
+  min-width: 220px;
+  max-width: 260px;
 }
 
 #infoBox table {
   border-collapse: collapse;
+  width: 100%;
 }
 
 #infoBox td {
@@ -74,7 +76,7 @@ svg {
 <h2>Market Taxonomy</h2>
 
 <div id="wrapper">
-  <svg width="2000" height="1200"></svg>
+  <svg width="2200" height="1200"></svg>
   <div id="container"></div>
   <div id="infoBox"></div>
 </div>
@@ -137,7 +139,7 @@ Promise.all([
 
             selectedName = child.name;
 
-            // ✅ show popup ONLY for top level
+            // ✅ SHOW DATA FOR TOP LEVEL
             if (depth === 0 && dataMap[child.name]) {
               showInfoBox(child.name);
             } else {
@@ -193,6 +195,14 @@ Promise.all([
 
     infoBox.innerHTML = html;
     infoBox.style.display = "block";
+
+    // ✅ POSITION TO THE RIGHT (FIXED)
+    const containerRect = container.node().getBoundingClientRect();
+    const wrapperRect = wrapper.getBoundingClientRect();
+
+    const rightEdge = containerRect.right - wrapperRect.left;
+
+    infoBox.style.left = (rightEdge + 40) + "px";
   }
 
   function calculatePositions() {
@@ -224,7 +234,7 @@ Promise.all([
 
     const color = marketColors[path[1]?.name] || "#999";
 
-    // ✅ main path
+    // ✅ PATH
     for (let i = 0; i < path.length - 2; i++) {
 
       const parent = getNode(path[i + 1].name, i);
@@ -246,7 +256,7 @@ Promise.all([
         .attr("stroke-width", 3);
     }
 
-    // ✅ final level (continuous)
+    // ✅ FINAL LEVEL (continuous)
     const parentDepth = path.length - 2;
 
     const parent = getNode(path[path.length - 1].name, parentDepth);
