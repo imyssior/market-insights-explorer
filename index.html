@@ -41,7 +41,7 @@ svg {
   background: #e0e0e0;
 }
 
-/* ✅ PANEL (dynamic position after last column) */
+/* ✅ INFO BOX */
 #infoBox {
   position: absolute;
   top: 80px;
@@ -112,7 +112,6 @@ Promise.all([
 
   const container = d3.select("#container");
   const svg = d3.select("svg");
-  const wrapper = document.getElementById("wrapper");
   const infoBox = document.getElementById("infoBox");
 
   let path = [treeData];
@@ -141,7 +140,6 @@ Promise.all([
 
             selectedName = child.name;
 
-            // ✅ show panel only for top level
             if (depth === 0 && dataMap[child.name]) {
               showInfoBox(child.name);
             } else {
@@ -183,8 +181,7 @@ Promise.all([
     const data = dataMap[topic];
     if (!data) return;
 
-    let html = "<strong>" + topic + "</strong><br><br>";
-    html += "<table>";
+    let html = "<strong>" + topic + "</strong><br><br><table>";
 
     data.forEach(row => {
       html += `<tr>
@@ -198,18 +195,16 @@ Promise.all([
     infoBox.innerHTML = html;
     infoBox.style.display = "block";
 
-    // ✅ POSITION AFTER LAST COLUMN (KEY FIX)
-    const wrapperRect = wrapper.getBoundingClientRect();
-    const containerRect = container.node().getBoundingClientRect();
+    // ✅ STABLE POSITION (based on number of columns)
+    const columnCount = path.length;
+    const totalWidth = columnCount * (COLUMN_WIDTH + COLUMN_GAP);
 
-    const rightEdge = containerRect.right - wrapperRect.left;
-
-    infoBox.style.left = (rightEdge + 20) + "px";
+    infoBox.style.left = (totalWidth + 20) + "px";
   }
 
   function calculatePositions() {
 
-    const wrapperRect = wrapper.getBoundingClientRect();
+    const wrapperRect = document.getElementById("wrapper").getBoundingClientRect();
     positions = [];
 
     d3.selectAll(".item").each(function() {
@@ -219,77 +214,4 @@ Promise.all([
       positions.push({
         name: this.dataset.name,
         depth: +this.dataset.depth,
-        x: Math.round(rect.left - wrapperRect.left),
-        y: Math.round(rect.top - wrapperRect.top + rect.height / 2)
-      });
-
-    });
-  }
-
-  function getNode(name, depth) {
-    return positions.find(p => p.name === name && p.depth === depth);
-  }
-
-  function drawConnections() {
-
-    if (path.length < 2) return;
-
-    const color = marketColors[path[1]?.name] || "#999";
-
-    // ✅ main path
-    for (let i = 0; i < path.length - 2; i++) {
-
-      const parent = getNode(path[i + 1].name, i);
-      const child = getNode(path[i + 2].name, i + 1);
-
-      if (!parent || !child) continue;
-
-      const laneX = Math.round(getLaneX(i));
-
-      svg.append("path")
-        .attr("d", `
-          M ${parent.x + COLUMN_WIDTH},${parent.y}
-          H ${laneX}
-          V ${child.y}
-          H ${child.x}
-        `)
-        .attr("fill", "none")
-        .attr("stroke", color)
-        .attr("stroke-width", 3);
-    }
-
-    // ✅ final level
-    const parentDepth = path.length - 2;
-
-    const parent = getNode(path[path.length - 1].name, parentDepth);
-    const children = positions.filter(p => p.depth === parentDepth + 1);
-
-    if (!parent || children.length === 0) return;
-
-    const laneX = Math.round(getLaneX(parentDepth));
-    const parentX = Math.round(parent.x + COLUMN_WIDTH);
-
-    children.forEach(child => {
-
-      svg.append("path")
-        .attr("d", `
-          M ${parentX},${parent.y}
-          H ${laneX}
-          V ${child.y}
-          H ${child.x}
-        `)
-        .attr("fill", "none")
-        .attr("stroke", color)
-        .attr("stroke-width", 2.5);
-
-    });
-  }
-
-  render();
-
-});
-
-</script>
-
-</body>
-</html>
+        x: Math.round(rect.lef
