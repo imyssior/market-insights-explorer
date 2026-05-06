@@ -8,7 +8,6 @@
 <style>
 body {
   font-family: Arial, sans-serif;
-  margin-right: 320px; /* ✅ creates space for side panel */
 }
 
 #wrapper {
@@ -42,14 +41,10 @@ svg {
   background: #e0e0e0;
 }
 
-/* ✅ TRUE RIGHT SIDE PANEL */
+/* ✅ PANEL (dynamic position after last column) */
 #infoBox {
-  position: fixed;
+  position: absolute;
   top: 80px;
-  right: 20px;
-  width: 280px;
-  max-height: 80vh;
-  overflow-y: auto;
   background: white;
   border: 1px solid #ccc;
   border-left: 4px solid #999;
@@ -58,6 +53,9 @@ svg {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   display: none;
   font-size: 13px;
+  width: 260px;
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 #infoBox table {
@@ -80,11 +78,10 @@ svg {
 <h2>Market Taxonomy</h2>
 
 <div id="wrapper">
-  <svg width="2200" height="1200"></svg>
+  <svg width="2600" height="1200"></svg>
   <div id="container"></div>
+  <div id="infoBox"></div>
 </div>
-
-<div id="infoBox"></div>
 
 <script>
 
@@ -115,6 +112,7 @@ Promise.all([
 
   const container = d3.select("#container");
   const svg = d3.select("svg");
+  const wrapper = document.getElementById("wrapper");
   const infoBox = document.getElementById("infoBox");
 
   let path = [treeData];
@@ -199,11 +197,19 @@ Promise.all([
 
     infoBox.innerHTML = html;
     infoBox.style.display = "block";
+
+    // ✅ POSITION AFTER LAST COLUMN (KEY FIX)
+    const wrapperRect = wrapper.getBoundingClientRect();
+    const containerRect = container.node().getBoundingClientRect();
+
+    const rightEdge = containerRect.right - wrapperRect.left;
+
+    infoBox.style.left = (rightEdge + 20) + "px";
   }
 
   function calculatePositions() {
 
-    const wrapperRect = document.getElementById("wrapper").getBoundingClientRect();
+    const wrapperRect = wrapper.getBoundingClientRect();
     positions = [];
 
     d3.selectAll(".item").each(function() {
