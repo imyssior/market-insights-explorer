@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Market Taxonomy</title>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+}
+
+#wrapper {
+  position: relative;
+}
+
+svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  shape-rendering: crispEdges;
+}
+
+.column {
+  display: inline-block;
+  vertical-align: top;
+  width: 240px;
+  margin-right: 80px;
+}
+
+.item {
+  padding: 8px;
+  margin: 6px 0;
+  background: #f2f2f2;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.item:hover {
+  background: #e0e0e0;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Market Taxonomy</h2>
+
+<div id="wrapper">
+  <svg width="2000" height="1200"></svg>
+  <div id="container"></div>
+</div>
+
+<script>
+
+const marketColors = {
+  "Consumer": "#1f77b4",
+  "Technology": "#ff7f0e",
+  "Finance": "#2ca02c",
+  "Health": "#d62728",
+  "Industrial": "#9467bd",
+  "Mobility": "#8c564b",
+  "Advertising & Media": "#e377c2",
+  "eCommerce": "#17becf",
+  "Global Indicators": "#7f7f7f"
+};
+
+const COLUMN_WIDTH = 240;
+const COLUMN_GAP = 80;
+const LANE_OFFSET = 60;
+
+function getLaneX(depth) {
+  return (depth + 1) * (COLUMN_WIDTH + COLUMN_GAP) - COLUMN_GAP + LANE_OFFSET;
+}
+
+d3.json("tree.json").then(function(data) {
+
+  const container = d3.select("#container");
+  const svg = d3.select("svg");
+  const wrapper = document.getElementById("wrapper");
+
+  let path = [data];
+  let selectedName = null;
+  let positions = [];
+
+  function render() {
+
+    container.html("");
+    svg.selectAll("*").remove();
+    positions = [];
+
+    path.forEach((levelData, depth) => {
+
+      const column = container.append("div")
+        .attr("class", "column");
+
+      (levelData.children || []).forEach(child => {
+
+        const div = column.append("div")
+          .attr("class", "item")
+          .attr("data-name", child.name)
+          .attr("data-depth", depth)
+          .text(child.name)
+          .on("click", function() {
+
+            selectedName = child.name;
+            path = path.slice(0, depth + 1);
+            path.push(child);
+            render();
+          });
+
+        if (depth === 0 && marketColors[child.name]) {
+          div.style("background", marketColors[child.name])
+             .style("color", "white");
+        }
+
+        if (child.name === selectedName) {
+          const top = path[1]?.name;
+          const color = marketColors[top];
+          if (color) {
+            div.style("background", color)
+               .style("color", "white");
+          }
+        }
+
+      });
+
+    });
+
+    requestAnimationFrame(() => {
+      calculatePositions();
+      drawConnections();
+    });
+  }
+
+  function calculatePositions() {
+
+    const wrapperRect = wrapper.getBoundingClientRect();
+    positions = [];
+
+    d3.selectAll(".item").each(function() {
+
+      const rect = this.getBoundingClientRect();
+
+      positions.push({
+        name: this.dataset.name,
+        depth: +this.dataset.depth,
+        x: Math.round(rect.left - wrapperRect.left),
+        y: Math.round(rect.top - wrapperRect.top + rect.height / 2)
+      });
+
+    });
+  }
+
+  function getNode(name, depth) {
+    return positions.find(p => p.name === name && p.depth === depth);
+  }
+
+  function drawConnections() {
+
+    if (path.length < 2) return;
+
+    const color = marketColors[path[1]?.name] || "#999";
+
+    // ✅ CONNECT SELECTED PATH
+    for (let i = 0; i < path.length - 2; i++) {
+
+      const parent = getNode(path[i + 1].name, i);
+      const child = getNode(path[i + 2].name, i + 1);
+
+      if (!parent || !child) continue;
+
+      const laneX = Math.round(getLaneX(i));
+
+      svg.append("path")
+        .attr("d", `
+          M ${parent.x + COLUMN_WIDTH},${parent.y}
+          H ${laneX}
+          V ${child.y}
+          H ${child.x}
+        `)
+        .attr("fill", "none")
+        .attr("stroke", color)
+        .attr("stroke-width", 3);
+    }
+
+    // ✅ FINAL LEVEL — CONTINUOUS PATHS (NO GAPS)
+
+    const parentDepth = path.length - 2;
+
+    const parent = getNode(path[path.length - 1].name, parentDepth);
+    const children = positions.filter(p => p.depth === parentDepth + 1);
+
+    if (!parent || children.length === 0) return;
+
+    const laneX = Math.round(getLaneX(parentDepth));
+    const parentX = Math.round(parent.x + COLUMN_WIDTH);
+
+    children.forEach(child => {
+
+      svg.append("path")
+        .attr("d", `
+          M ${parentX},${parent.y}
+          H ${laneX}
+          V ${child.y}
+          H ${child.x}
+        `)
+        .attr("fill", "none")
+        .attr("stroke", color)
+        .attr("stroke-width", 2.5)
+        .attr("opacity", 0.9);
+
+    });
+  }
+
+  render();
+
+});
+
+</script>
+
+</body>
+</html>
