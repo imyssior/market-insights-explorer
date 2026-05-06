@@ -8,7 +8,7 @@
 <style>
 body {
   font-family: Arial, sans-serif;
-  margin-right: 320px; /* ✅ creates space for side panel */
+  margin-right: 320px;
 }
 
 #wrapper {
@@ -42,7 +42,7 @@ svg {
   background: #e0e0e0;
 }
 
-/* ✅ TRUE RIGHT SIDE PANEL */
+/* ✅ RIGHT PANEL */
 #infoBox {
   position: fixed;
   top: 80px;
@@ -143,11 +143,11 @@ Promise.all([
 
             selectedName = child.name;
 
-            // ✅ show panel only for top level
-            if (depth === 0 && dataMap[child.name]) {
-              showInfoBox(child.name);
-            } else {
-              infoBox.style.display = "none";
+            // ✅ ALWAYS show top-level market data
+            const topLevel = depth === 0 ? child.name : path[1]?.name;
+
+            if (topLevel && dataMap[topLevel]) {
+              showInfoBox(topLevel);
             }
 
             path = path.slice(0, depth + 1);
@@ -230,7 +230,6 @@ Promise.all([
 
     const color = marketColors[path[1]?.name] || "#999";
 
-    // ✅ main path
     for (let i = 0; i < path.length - 2; i++) {
 
       const parent = getNode(path[i + 1].name, i);
@@ -252,7 +251,6 @@ Promise.all([
         .attr("stroke-width", 3);
     }
 
-    // ✅ final level
     const parentDepth = path.length - 2;
 
     const parent = getNode(path[path.length - 1].name, parentDepth);
