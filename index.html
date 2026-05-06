@@ -40,6 +40,32 @@ svg {
 .item:hover {
   background: #e0e0e0;
 }
+
+/* ✅ INFO BOX */
+#infoBox {
+  position: absolute;
+  top: 60px;
+  left: 300px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: none;
+  font-size: 13px;
+}
+
+#infoBox table {
+  border-collapse: collapse;
+}
+
+#infoBox td {
+  padding: 4px 8px;
+}
+
+#infoBox td:first-child {
+  font-weight: bold;
+}
 </style>
 </head>
 
@@ -50,6 +76,7 @@ svg {
 <div id="wrapper">
   <svg width="2000" height="1200"></svg>
   <div id="container"></div>
+  <div id="infoBox"></div>
 </div>
 
 <script>
@@ -74,13 +101,17 @@ function getLaneX(depth) {
   return (depth + 1) * (COLUMN_WIDTH + COLUMN_GAP) - COLUMN_GAP + LANE_OFFSET;
 }
 
-d3.json("tree.json").then(function(data) {
+Promise.all([
+  d3.json("tree.json"),
+  d3.json("data.json")
+]).then(function([treeData, dataMap]) {
 
   const container = d3.select("#container");
   const svg = d3.select("svg");
   const wrapper = document.getElementById("wrapper");
+  const infoBox = document.getElementById("infoBox");
 
-  let path = [data];
+  let path = [treeData];
   let selectedName = null;
   let positions = [];
 
@@ -105,8 +136,17 @@ d3.json("tree.json").then(function(data) {
           .on("click", function() {
 
             selectedName = child.name;
+
+            // ✅ show popup ONLY for top level
+            if (depth === 0 && dataMap[child.name]) {
+              showInfoBox(child.name);
+            } else {
+              infoBox.style.display = "none";
+            }
+
             path = path.slice(0, depth + 1);
             path.push(child);
+
             render();
           });
 
@@ -132,6 +172,27 @@ d3.json("tree.json").then(function(data) {
       calculatePositions();
       drawConnections();
     });
+  }
+
+  function showInfoBox(topic) {
+
+    const data = dataMap[topic];
+    if (!data) return;
+
+    let html = "<strong>" + topic + "</strong><br><br>";
+    html += "<table>";
+
+    data.forEach(row => {
+      html += `<tr>
+        <td>${row.name}</td>
+        <td>${Number(row.value).toLocaleString()}</td>
+      </tr>`;
+    });
+
+    html += "</table>";
+
+    infoBox.innerHTML = html;
+    infoBox.style.display = "block";
   }
 
   function calculatePositions() {
@@ -163,7 +224,7 @@ d3.json("tree.json").then(function(data) {
 
     const color = marketColors[path[1]?.name] || "#999";
 
-    // ✅ CONNECT SELECTED PATH
+    // ✅ main path
     for (let i = 0; i < path.length - 2; i++) {
 
       const parent = getNode(path[i + 1].name, i);
@@ -185,8 +246,7 @@ d3.json("tree.json").then(function(data) {
         .attr("stroke-width", 3);
     }
 
-    // ✅ FINAL LEVEL — CONTINUOUS PATHS (NO GAPS)
-
+    // ✅ final level (continuous)
     const parentDepth = path.length - 2;
 
     const parent = getNode(path[path.length - 1].name, parentDepth);
@@ -208,8 +268,7 @@ d3.json("tree.json").then(function(data) {
         `)
         .attr("fill", "none")
         .attr("stroke", color)
-        .attr("stroke-width", 2.5)
-        .attr("opacity", 0.9);
+        .attr("stroke-width", 2.5);
 
     });
   }
