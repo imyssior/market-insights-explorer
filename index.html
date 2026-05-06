@@ -8,6 +8,7 @@
 <style>
 body {
   font-family: Arial, sans-serif;
+  margin-right: 320px; /* ✅ creates space for side panel */
 }
 
 #wrapper {
@@ -41,19 +42,22 @@ svg {
   background: #e0e0e0;
 }
 
-/* ✅ FIXED: RIGHT-SIDE PANEL */
+/* ✅ TRUE RIGHT SIDE PANEL */
 #infoBox {
-  position: absolute;
-  top: 60px;
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  width: 280px;
+  max-height: 80vh;
+  overflow-y: auto;
   background: white;
   border: 1px solid #ccc;
+  border-left: 4px solid #999;
   border-radius: 6px;
   padding: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   display: none;
   font-size: 13px;
-  min-width: 220px;
-  max-width: 260px;
 }
 
 #infoBox table {
@@ -62,7 +66,7 @@ svg {
 }
 
 #infoBox td {
-  padding: 4px 8px;
+  padding: 4px 6px;
 }
 
 #infoBox td:first-child {
@@ -78,8 +82,9 @@ svg {
 <div id="wrapper">
   <svg width="2200" height="1200"></svg>
   <div id="container"></div>
-  <div id="infoBox"></div>
 </div>
+
+<div id="infoBox"></div>
 
 <script>
 
@@ -110,7 +115,6 @@ Promise.all([
 
   const container = d3.select("#container");
   const svg = d3.select("svg");
-  const wrapper = document.getElementById("wrapper");
   const infoBox = document.getElementById("infoBox");
 
   let path = [treeData];
@@ -139,7 +143,7 @@ Promise.all([
 
             selectedName = child.name;
 
-            // ✅ SHOW DATA FOR TOP LEVEL
+            // ✅ show panel only for top level
             if (depth === 0 && dataMap[child.name]) {
               showInfoBox(child.name);
             } else {
@@ -195,19 +199,11 @@ Promise.all([
 
     infoBox.innerHTML = html;
     infoBox.style.display = "block";
-
-    // ✅ POSITION TO THE RIGHT (FIXED)
-    const containerRect = container.node().getBoundingClientRect();
-    const wrapperRect = wrapper.getBoundingClientRect();
-
-    const rightEdge = containerRect.right - wrapperRect.left;
-
-    infoBox.style.left = (rightEdge + 40) + "px";
   }
 
   function calculatePositions() {
 
-    const wrapperRect = wrapper.getBoundingClientRect();
+    const wrapperRect = document.getElementById("wrapper").getBoundingClientRect();
     positions = [];
 
     d3.selectAll(".item").each(function() {
@@ -234,7 +230,7 @@ Promise.all([
 
     const color = marketColors[path[1]?.name] || "#999";
 
-    // ✅ PATH
+    // ✅ main path
     for (let i = 0; i < path.length - 2; i++) {
 
       const parent = getNode(path[i + 1].name, i);
@@ -256,7 +252,7 @@ Promise.all([
         .attr("stroke-width", 3);
     }
 
-    // ✅ FINAL LEVEL (continuous)
+    // ✅ final level
     const parentDepth = path.length - 2;
 
     const parent = getNode(path[path.length - 1].name, parentDepth);
