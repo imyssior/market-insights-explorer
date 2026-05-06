@@ -8,15 +8,9 @@
 <style>
 body {
   font-family: Arial, sans-serif;
+  margin-right: 320px; /* ✅ creates space for side panel */
 }
 
-/* ✅ layout wrapper */
-#layout {
-  display: flex;
-  align-items: flex-start;
-}
-
-/* ✅ taxonomy area */
 #wrapper {
   position: relative;
 }
@@ -26,6 +20,7 @@ svg {
   top: 0;
   left: 0;
   pointer-events: none;
+  shape-rendering: crispEdges;
 }
 
 .column {
@@ -47,9 +42,14 @@ svg {
   background: #e0e0e0;
 }
 
-/* ✅ RIGHT PANEL (clean + stable) */
+/* ✅ TRUE RIGHT SIDE PANEL */
 #infoBox {
-  margin-left: 40px;
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  width: 280px;
+  max-height: 80vh;
+  overflow-y: auto;
   background: white;
   border: 1px solid #ccc;
   border-left: 4px solid #999;
@@ -58,9 +58,6 @@ svg {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   display: none;
   font-size: 13px;
-  width: 260px;
-  max-height: 80vh;
-  overflow-y: auto;
 }
 
 #infoBox table {
@@ -82,17 +79,12 @@ svg {
 
 <h2>Market Taxonomy</h2>
 
-<div id="layout">
-  
-  <div id="wrapper">
-    <svg width="2400" height="1200"></svg>
-    <div id="container"></div>
-  </div>
-
-  <!-- ✅ PANEL sits naturally on the right -->
-  <div id="infoBox"></div>
-
+<div id="wrapper">
+  <svg width="2200" height="1200"></svg>
+  <div id="container"></div>
 </div>
+
+<div id="infoBox"></div>
 
 <script>
 
@@ -151,6 +143,7 @@ Promise.all([
 
             selectedName = child.name;
 
+            // ✅ show panel only for top level
             if (depth === 0 && dataMap[child.name]) {
               showInfoBox(child.name);
             } else {
@@ -192,7 +185,8 @@ Promise.all([
     const data = dataMap[topic];
     if (!data) return;
 
-    let html = "<strong>" + topic + "</strong><br><br><table>";
+    let html = "<strong>" + topic + "</strong><br><br>";
+    html += "<table>";
 
     data.forEach(row => {
       html += `<tr>
@@ -236,6 +230,7 @@ Promise.all([
 
     const color = marketColors[path[1]?.name] || "#999";
 
+    // ✅ main path
     for (let i = 0; i < path.length - 2; i++) {
 
       const parent = getNode(path[i + 1].name, i);
@@ -257,6 +252,7 @@ Promise.all([
         .attr("stroke-width", 3);
     }
 
+    // ✅ final level
     const parentDepth = path.length - 2;
 
     const parent = getNode(path[path.length - 1].name, parentDepth);
