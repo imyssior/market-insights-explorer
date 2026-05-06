@@ -10,6 +10,13 @@ body {
   font-family: Arial, sans-serif;
 }
 
+/* ✅ layout wrapper */
+#layout {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* ✅ taxonomy area */
 #wrapper {
   position: relative;
 }
@@ -19,7 +26,6 @@ svg {
   top: 0;
   left: 0;
   pointer-events: none;
-  shape-rendering: crispEdges;
 }
 
 .column {
@@ -41,10 +47,9 @@ svg {
   background: #e0e0e0;
 }
 
-/* ✅ INFO BOX */
+/* ✅ RIGHT PANEL (clean + stable) */
 #infoBox {
-  position: absolute;
-  top: 80px;
+  margin-left: 40px;
   background: white;
   border: 1px solid #ccc;
   border-left: 4px solid #999;
@@ -77,10 +82,16 @@ svg {
 
 <h2>Market Taxonomy</h2>
 
-<div id="wrapper">
-  <svg width="2600" height="1200"></svg>
-  <div id="container"></div>
+<div id="layout">
+  
+  <div id="wrapper">
+    <svg width="2400" height="1200"></svg>
+    <div id="container"></div>
+  </div>
+
+  <!-- ✅ PANEL sits naturally on the right -->
   <div id="infoBox"></div>
+
 </div>
 
 <script>
@@ -194,12 +205,6 @@ Promise.all([
 
     infoBox.innerHTML = html;
     infoBox.style.display = "block";
-
-    // ✅ STABLE POSITION (based on number of columns)
-    const columnCount = path.length;
-    const totalWidth = columnCount * (COLUMN_WIDTH + COLUMN_GAP);
-
-    infoBox.style.left = (totalWidth + 20) + "px";
   }
 
   function calculatePositions() {
@@ -214,4 +219,75 @@ Promise.all([
       positions.push({
         name: this.dataset.name,
         depth: +this.dataset.depth,
-        x: Math.round(rect.lef
+        x: Math.round(rect.left - wrapperRect.left),
+        y: Math.round(rect.top - wrapperRect.top + rect.height / 2)
+      });
+
+    });
+  }
+
+  function getNode(name, depth) {
+    return positions.find(p => p.name === name && p.depth === depth);
+  }
+
+  function drawConnections() {
+
+    if (path.length < 2) return;
+
+    const color = marketColors[path[1]?.name] || "#999";
+
+    for (let i = 0; i < path.length - 2; i++) {
+
+      const parent = getNode(path[i + 1].name, i);
+      const child = getNode(path[i + 2].name, i + 1);
+
+      if (!parent || !child) continue;
+
+      const laneX = Math.round(getLaneX(i));
+
+      svg.append("path")
+        .attr("d", `
+          M ${parent.x + COLUMN_WIDTH},${parent.y}
+          H ${laneX}
+          V ${child.y}
+          H ${child.x}
+        `)
+        .attr("fill", "none")
+        .attr("stroke", color)
+        .attr("stroke-width", 3);
+    }
+
+    const parentDepth = path.length - 2;
+
+    const parent = getNode(path[path.length - 1].name, parentDepth);
+    const children = positions.filter(p => p.depth === parentDepth + 1);
+
+    if (!parent || children.length === 0) return;
+
+    const laneX = Math.round(getLaneX(parentDepth));
+    const parentX = Math.round(parent.x + COLUMN_WIDTH);
+
+    children.forEach(child => {
+
+      svg.append("path")
+        .attr("d", `
+          M ${parentX},${parent.y}
+          H ${laneX}
+          V ${child.y}
+          H ${child.x}
+        `)
+        .attr("fill", "none")
+        .attr("stroke", color)
+        .attr("stroke-width", 2.5);
+
+    });
+  }
+
+  render();
+
+});
+
+</script>
+
+</body>
+</html>
