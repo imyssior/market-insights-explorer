@@ -1,0 +1,768 @@
+{
+  "Advertising & Media": [
+    {
+      "name": "Revenue",
+      "value": 1329923
+    },
+    {
+      "name": "Ad Spending",
+      "value": 851222
+    },
+    {
+      "name": "Users",
+      "value": 456929
+    },
+    {
+      "name": "Reach",
+      "value": 340489
+    },
+    {
+      "name": "Digital Ad Spending",
+      "value": 95174
+    },
+    {
+      "name": "Downloads",
+      "value": 62775
+    },
+    {
+      "name": "Market Size",
+      "value": 26824
+    },
+    {
+      "name": "Demographics",
+      "value": 19762
+    },
+    {
+      "name": "Media Usage",
+      "value": 18704
+    },
+    {
+      "name": "Sales Channels",
+      "value": 7700
+    },
+    {
+      "name": "Key Players",
+      "value": 4870
+    },
+    {
+      "name": "Market Shares",
+      "value": 151
+    },
+    {
+      "name": "Total",
+      "value": 3214523
+    }
+  ],
+  "eCommerce": [
+    {
+      "name": "Sales Channels",
+      "value": 5215780
+    },
+    {
+      "name": "Revenue",
+      "value": 4020507
+    },
+    {
+      "name": "Users",
+      "value": 2103626
+    },
+    {
+      "name": "Key Players",
+      "value": 19313
+    },
+    {
+      "name": "Demographics",
+      "value": 4391
+    },
+    {
+      "name": "Total",
+      "value": 11363617
+    }
+  ],
+  "Consumer": [
+    {
+      "name": "Sales Channels",
+      "value": 3826492
+    },
+    {
+      "name": "Revenue",
+      "value": 3498292
+    },
+    {
+      "name": "Volume",
+      "value": 2500495
+    },
+    {
+      "name": "Price",
+      "value": 924429
+    },
+    {
+      "name": "Key Players",
+      "value": 339621
+    },
+    {
+      "name": "Product Types",
+      "value": 223671
+    },
+    {
+      "name": "Demographics",
+      "value": 15214
+    },
+    {
+      "name": "Gaming Share",
+      "value": 8316
+    },
+    {
+      "name": "Fairtrade Revenue Share",
+      "value": 2079
+    },
+    {
+      "name": "Purchase Criteria",
+      "value": 1155
+    },
+    {
+      "name": "Total",
+      "value": 11339764
+    }
+  ],
+  "Finance": [
+    {
+      "name": "Transaction Value",
+      "value": 94668
+    },
+    {
+      "name": "Gross Written Premium",
+      "value": 84644
+    },
+    {
+      "name": "Revenue",
+      "value": 82930
+    },
+    {
+      "name": "Financial Values",
+      "value": 73762
+    },
+    {
+      "name": "Users",
+      "value": 62840
+    },
+    {
+      "name": "Volume",
+      "value": 58275
+    },
+    {
+      "name": "Capital Raised",
+      "value": 50168
+    },
+    {
+      "name": "Assets Under Management (AUM)",
+      "value": 43016
+    },
+    {
+      "name": "Value Development",
+      "value": 37278
+    },
+    {
+      "name": "Net Interest Income",
+      "value": 36675
+    },
+    {
+      "name": "Value",
+      "value": 31266
+    },
+    {
+      "name": "Number of Deals",
+      "value": 28708
+    },
+    {
+      "name": "Average Deal Size",
+      "value": 26548
+    },
+    {
+      "name": "Transaction Values",
+      "value": 25533
+    },
+    {
+      "name": "ATMs & Bank Branches",
+      "value": 23159
+    },
+    {
+      "name": "Deposits",
+      "value": 15146
+    },
+    {
+      "name": "Loans",
+      "value": 15146
+    },
+    {
+      "name": "Advisor Revenue",
+      "value": 13494
+    },
+    {
+      "name": "Credit Card Interest Income",
+      "value": 12294
+    },
+    {
+      "name": "Number of Funds",
+      "value": 10251
+    },
+    {
+      "name": "Company Revenue",
+      "value": 8118
+    },
+    {
+      "name": "Gross Claim Payments",
+      "value": 8106
+    },
+    {
+      "name": "Loss Ratio",
+      "value": 8106
+    },
+    {
+      "name": "Market Capitalization",
+      "value": 6455
+    },
+    {
+      "name": "Deal Value",
+      "value": 5853
+    },
+    {
+      "name": "Average Transaction Size",
+      "value": 5790
+    },
+    {
+      "name": "Household Type",
+      "value": 5790
+    },
+    {
+      "name": "Number of Transactions",
+      "value": 5790
+    },
+    {
+      "name": "Value Split",
+      "value": 5790
+    },
+    {
+      "name": "Financial Advisors",
+      "value": 5402
+    },
+    {
+      "name": "Share development",
+      "value": 3848
+    },
+    {
+      "name": "High Net Worth Individuals",
+      "value": 2975
+    },
+    {
+      "name": "Key Players",
+      "value": 2918
+    },
+    {
+      "name": "Affordability",
+      "value": 2895
+    },
+    {
+      "name": "Mobile Banking",
+      "value": 1963
+    },
+    {
+      "name": "Market Volume",
+      "value": 1629
+    },
+    {
+      "name": "Number of Listed Domestic Companies",
+      "value": 1629
+    },
+    {
+      "name": "Number of Trades",
+      "value": 1629
+    },
+    {
+      "name": "Real Estate Type",
+      "value": 908
+    },
+    {
+      "name": "Distribution of Market Capitalization",
+      "value": 798
+    },
+    {
+      "name": "Distribution of Payment Methods",
+      "value": 550
+    },
+    {
+      "name": "Community Size Split",
+      "value": 84
+    },
+    {
+      "name": "Financial Advisory Users",
+      "value": 40
+    },
+    {
+      "name": "Sales Channels",
+      "value": 32
+    },
+    {
+      "name": "Total",
+      "value": 912899
+    }
+  ],
+  "Global Indicators": [
+    {
+      "name": "Public Finance",
+      "value": 76428
+    },
+    {
+      "name": "International Trade",
+      "value": 62852
+    },
+    {
+      "name": "Economic Measures",
+      "value": 36091
+    },
+    {
+      "name": "Household Expenditure",
+      "value": 33968
+    },
+    {
+      "name": "Demography",
+      "value": 31845
+    },
+    {
+      "name": "Household Income",
+      "value": 27599
+    },
+    {
+      "name": "Economic Inequality",
+      "value": 21230
+    },
+    {
+      "name": "Basic Services",
+      "value": 19107
+    },
+    {
+      "name": "Employment",
+      "value": 14861
+    },
+    {
+      "name": "Health Determinants",
+      "value": 14861
+    },
+    {
+      "name": "Healthcare Resources",
+      "value": 14861
+    },
+    {
+      "name": "Digital Infrastracture",
+      "value": 12738
+    },
+    {
+      "name": "Health Financing",
+      "value": 10615
+    },
+    {
+      "name": "Internet",
+      "value": 10615
+    },
+    {
+      "name": "Banking",
+      "value": 8492
+    },
+    {
+      "name": "Social Progress",
+      "value": 8492
+    },
+    {
+      "name": "Telecommunications",
+      "value": 8492
+    },
+    {
+      "name": "Inflation",
+      "value": 7590
+    },
+    {
+      "name": "Transport",
+      "value": 6369
+    },
+    {
+      "name": "Education",
+      "value": 5918
+    },
+    {
+      "name": "Total",
+      "value": 433024
+    }
+  ],
+  "Health": [
+    {
+      "name": "Revenue",
+      "value": 516290
+    },
+    {
+      "name": "Users",
+      "value": 184514
+    },
+    {
+      "name": "Key Players",
+      "value": 30702
+    },
+    {
+      "name": "Patients",
+      "value": 22680
+    },
+    {
+      "name": "Burden of Disease",
+      "value": 18900
+    },
+    {
+      "name": "Hospitals",
+      "value": 16106
+    },
+    {
+      "name": "Hospital beds",
+      "value": 15802
+    },
+    {
+      "name": "Next generation therapy",
+      "value": 10920
+    },
+    {
+      "name": "Research & development",
+      "value": 2941
+    },
+    {
+      "name": "Demographics",
+      "value": 1922
+    },
+    {
+      "name": "Volume",
+      "value": 890
+    },
+    {
+      "name": "Medications revenue",
+      "value": 169
+    },
+    {
+      "name": "Products",
+      "value": 139
+    },
+    {
+      "name": "Price",
+      "value": 70
+    },
+    {
+      "name": "Total",
+      "value": 822045
+    }
+  ],
+  "Industrial": [
+    {
+      "name": "Employment",
+      "value": 462952
+    },
+    {
+      "name": "Output",
+      "value": 310174
+    },
+    {
+      "name": "Trade",
+      "value": 204066
+    },
+    {
+      "name": "Value Added",
+      "value": 190461
+    },
+    {
+      "name": "Production",
+      "value": 107267
+    },
+    {
+      "name": "Energy Emissions",
+      "value": 38421
+    },
+    {
+      "name": "Revenue",
+      "value": 28500
+    },
+    {
+      "name": "Emission Intensity",
+      "value": 4796
+    },
+    {
+      "name": "Nuclear Infrastructure",
+      "value": 1716
+    },
+    {
+      "name": "Energy Trade",
+      "value": 1610
+    },
+    {
+      "name": "Reserves",
+      "value": 507
+    },
+    {
+      "name": "Key Players",
+      "value": 102
+    },
+    {
+      "name": "Total",
+      "value": 1350572
+    }
+  ],
+  "Mobility": [
+    {
+      "name": "Technical Specifications",
+      "value": 334423
+    },
+    {
+      "name": "Revenue",
+      "value": 261144
+    },
+    {
+      "name": "Unit Sales",
+      "value": 96316
+    },
+    {
+      "name": "Users",
+      "value": 85886
+    },
+    {
+      "name": "Sales Channels",
+      "value": 85882
+    },
+    {
+      "name": "Price",
+      "value": 64928
+    },
+    {
+      "name": "Global Comparison - Revenue",
+      "value": 22033
+    },
+    {
+      "name": "Deliveries",
+      "value": 21296
+    },
+    {
+      "name": "Average Price per Aircraft",
+      "value": 16021
+    },
+    {
+      "name": "Revenue Change",
+      "value": 15764
+    },
+    {
+      "name": "Freight",
+      "value": 10527
+    },
+    {
+      "name": "Transportation Intensity",
+      "value": 10527
+    },
+    {
+      "name": "Production",
+      "value": 9196
+    },
+    {
+      "name": "Travel Behavior",
+      "value": 8512
+    },
+    {
+      "name": "Electric Bike Share",
+      "value": 8402
+    },
+    {
+      "name": "Units",
+      "value": 7816
+    },
+    {
+      "name": "Orders",
+      "value": 6523
+    },
+    {
+      "name": "Container",
+      "value": 6413
+    },
+    {
+      "name": "User Demographics",
+      "value": 6306
+    },
+    {
+      "name": "Stations per Million Inhabitants",
+      "value": 6303
+    },
+    {
+      "name": "Stations per Hundred Thounsad Cars",
+      "value": 6003
+    },
+    {
+      "name": "Non-aeronautical Revenue",
+      "value": 3685
+    },
+    {
+      "name": "Top Models",
+      "value": 3552
+    },
+    {
+      "name": "Key Players",
+      "value": 3486
+    },
+    {
+      "name": "Container Port Traffic",
+      "value": 3454
+    },
+    {
+      "name": "Transportation Emissions",
+      "value": 2392
+    },
+    {
+      "name": "Aeronautical Revenue",
+      "value": 2211
+    },
+    {
+      "name": "Logistics Cost",
+      "value": 2123
+    },
+    {
+      "name": "Value Added",
+      "value": 2123
+    },
+    {
+      "name": "Passengers Per Departure",
+      "value": 2116
+    },
+    {
+      "name": "Delivery shares by customer type",
+      "value": 1314
+    },
+    {
+      "name": "Hotel Star Rating",
+      "value": 935
+    },
+    {
+      "name": "Air Passengers",
+      "value": 737
+    },
+    {
+      "name": "Mode of Transportation",
+      "value": 624
+    },
+    {
+      "name": "Bicycle Sales by Type",
+      "value": 588
+    },
+    {
+      "name": "Destination Shares",
+      "value": 74
+    },
+    {
+      "name": "Electrification of Railway",
+      "value": 72
+    },
+    {
+      "name": "Top Ports",
+      "value": 40
+    },
+    {
+      "name": "Top Shipping Lanes",
+      "value": 24
+    },
+    {
+      "name": "Freight Rate",
+      "value": 10
+    },
+    {
+      "name": "Top Air Freight Forwarders",
+      "value": 10
+    },
+    {
+      "name": "Top Airlines",
+      "value": 10
+    },
+    {
+      "name": "Top Airports",
+      "value": 10
+    },
+    {
+      "name": "Total",
+      "value": 1119811
+    }
+  ],
+  "Technology": [
+    {
+      "name": "Revenue",
+      "value": 630654
+    },
+    {
+      "name": "Key Players",
+      "value": 76829
+    },
+    {
+      "name": "Volume",
+      "value": 53827
+    },
+    {
+      "name": "Market Size",
+      "value": 39427
+    },
+    {
+      "name": "Price",
+      "value": 32316
+    },
+    {
+      "name": "Users",
+      "value": 9235
+    },
+    {
+      "name": "Network Coverage",
+      "value": 4208
+    },
+    {
+      "name": "Internet Access",
+      "value": 2970
+    },
+    {
+      "name": "Mobile Data",
+      "value": 2651
+    },
+    {
+      "name": "Annual AI Publications",
+      "value": 2000
+    },
+    {
+      "name": "Autonomous mobile robots",
+      "value": 1034
+    },
+    {
+      "name": "Collaborative Robots",
+      "value": 1034
+    },
+    {
+      "name": "Cybercrime",
+      "value": 592
+    },
+    {
+      "name": "Enterprises using IoT",
+      "value": 308
+    },
+    {
+      "name": "Software Types",
+      "value": 24
+    },
+    {
+      "name": "Cost",
+      "value": 16
+    },
+    {
+      "name": "Platform Types",
+      "value": 6
+    },
+    {
+      "name": "Deployment Frequency",
+      "value": 4
+    },
+    {
+      "name": "Total",
+      "value": 857135
+    }
+  ]
+}
